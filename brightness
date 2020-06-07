@@ -1,0 +1,19 @@
+#!/bin/sh
+
+SYS_KEY=/sys/class/backlight/intel_backlight/brightness
+
+CURRENT=$(cat $SYS_KEY)
+
+case $1 in 
+    -inc) 
+        NEW=$(($CURRENT + $2)) 
+        ;; 
+    -dec) 
+        NEW=$(($CURRENT - $2)) 
+        ;; 
+    *) echo "Don't get it, sorry" 
+        exit 10 
+        ;;  
+esac
+
+sudo /bin/sh -c "echo $NEW | tee $SYS_KEY"

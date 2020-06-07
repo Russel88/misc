@@ -1,0 +1,41 @@
+Config { font = "xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=true"
+       , additionalFonts = []
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "black"
+       , fgColor = "grey"
+       , alpha = 255
+       , position = Top
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+         commands = [ 
+              Run Wireless "wlp2s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+            , Run Cpu ["-L","3","-H","50",
+                       "--normal","green","--high","red"] 10
+            , Run Memory ["-t","Mem: <usedratio>%"] 10
+            , Run Swap [] 10
+            , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+            , Run Battery ["-t", "<acstatus>: <left>% - <timeleft>",
+	                       "--",
+	                       --"-c", "charge_full",
+                           "-O", "AC",
+                           "-o", "Bat",
+                           "-h", "green",
+                           "-l", "red"
+                           ] 10
+            , Run Com "/bin/bash" ["-c", "echo $((($(cat /sys/class/backlight/intel_backlight/brightness) * 100) / 4285))'%'"]  "bright" 1
+            , Run Com "/home/russel/Scripts/misc/audiolevel" [] "audio" 1
+        ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%cpu% | %memory% * %swap% | Light: %bright% | Audio: %audio% | %wlp2s0wi%}\
+                    \{%battery% | <fc=#ee9a00>%date%</fc>"
+       }
+            
