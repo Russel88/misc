@@ -74,6 +74,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch arandr
     , ((modm, 		        xK_x     ), spawn "arandr")
 
+    -- launch slock
+    , ((modm, 		        xK_Escape), spawn "slock")
+
     -- launch screenshot
     , ((modm, 		        xK_Print ), spawn "gnome-screenshot -i")
 
