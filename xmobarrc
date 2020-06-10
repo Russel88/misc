@@ -21,7 +21,7 @@ Config { font = "xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=true"
                        "--normal","green","--high","red"] 10
             , Run Memory ["-t","Mem: <usedratio>%"] 10
             , Run Swap [] 10
-            , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+            , Run Date "%a %b %_d %Y %H:%M" "date" 10
             , Run Battery ["-t", "<acstatus>: <left>% - <timeleft>",
 	                       "--",
 	                       --"-c", "charge_full",
@@ -32,10 +32,11 @@ Config { font = "xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=true"
                            ] 10
             , Run Com "/bin/bash" ["-c", "echo $((($(cat /sys/class/backlight/intel_backlight/brightness) * 100) / 4285))'%'"]  "bright" 1
             , Run Com "/home/russel/Scripts/misc/audiolevel" [] "audio" 1
+            , Run StdinReader
         ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | Light: %bright% | Audio: %audio% | %wlp2s0wi%}\
-                    \{%battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%cpu% | %memory% * %swap% | Light: %bright% | Vol: %audio% | %wlp2s0wi%}\
+                    \{%StdinReader% | %battery% | <fc=#ee9a00>%date%</fc>"
        }
             

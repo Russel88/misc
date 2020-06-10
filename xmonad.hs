@@ -6,6 +6,9 @@ import System.Exit
 import XMonad.Util.Run
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Spacing
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.UrgencyHook
+import XMonad.Util.NamedWindows
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -59,8 +62,20 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
 
-    -- launch gmrun
+    -- launch firefox
     , ((modm, 		        xK_f     ), spawn "firefox")
+
+    -- launch alsamixer
+    , ((modm, 		        xK_a     ), spawn "gnome-terminal.wrapper -e alsamixer")
+
+    -- launch ranger
+    , ((modm, 		        xK_z     ), spawn "gnome-terminal.wrapper -e ranger")
+
+    -- launch arandr
+    , ((modm, 		        xK_x     ), spawn "arandr")
+
+    -- launch screenshot
+    , ((modm, 		        xK_Print ), spawn "gnome-screenshot -i")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -237,8 +252,14 @@ myEventHook = mempty
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook = return ()
-
+myLogHook h = dynamicLogWithPP $ xmobarPP
+                                    { ppTitle = xmobarColor "green" "" . shorten 80
+                                    , ppOutput = hPutStrLn h
+                                    , ppOrder = \(ws:l:t:_)   -> [ws, t]
+                                    , ppVisible = xmobarColor "black" "black"
+                                    , ppUrgent  = xmobarColor "red" "yellow"
+                                    }
+           
 ------------------------------------------------------------------------
 -- Startup hook
 
@@ -259,16 +280,9 @@ myStartupHook =
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-	xmproc <- spawnPipe "xmobar -x 0 /home/russel/Scripts/misc/xmobarrc"
-	xmonad $ docks defaults
+	xmproc <- spawnPipe "xmobar /home/russel/Scripts/misc/xmobarrc"
 
--- A structure containing your configuration settings, overriding
--- fields in the default config. Any you don't override, will
--- use the defaults defined in xmonad/XMonad/Config.hs
---
--- No need to modify this.
---
-defaults = def {
+	xmonad $ docks $ defaultConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -287,6 +301,6 @@ defaults = def {
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook,
+        logHook            = myLogHook xmproc,
         startupHook        = myStartupHook
     }
