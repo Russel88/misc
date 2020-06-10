@@ -256,7 +256,6 @@ myLogHook h = dynamicLogWithPP $ xmobarPP
                                     { ppTitle = xmobarColor "green" "" . shorten 80
                                     , ppOutput = hPutStrLn h
                                     , ppOrder = \(ws:l:t:_)   -> [ws, t]
-                                    , ppVisible = xmobarColor "black" "black"
                                     , ppUrgent  = xmobarColor "red" "yellow"
                                     }
            
