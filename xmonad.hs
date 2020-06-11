@@ -77,6 +77,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch slock
     , ((modm, 		        xK_Escape), spawn "slock")
 
+    -- launch wifi manager
+    , ((modm, 		        xK_i     ), spawn "wicd-client")
+
     -- launch screenshot
     , ((modm, 		        xK_Print ), spawn "gnome-screenshot -i")
 

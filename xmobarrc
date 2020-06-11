@@ -1,10 +1,10 @@
-Config { font = "xft:Ubuntu Mono:pixelsize=16:antialias=true:hinting=true"
+Config { font = "xft:Ubuntu Mono:pixelsize=17:antialias=true:hinting=true"
        , additionalFonts = []
        , borderColor = "black"
        , border = TopB
        , bgColor = "black"
        , fgColor = "grey"
-       , alpha = 255
+       , alpha = 0
        , position = Top
        , textOffset = -1
        , iconOffset = -1
