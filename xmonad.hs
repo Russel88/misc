@@ -27,7 +27,7 @@ myClickJustFocuses :: Bool
 myClickJustFocuses = False
 
 -- Width of the window border in pixels.
-myBorderWidth   = 3
+myBorderWidth   = 2
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -276,7 +276,7 @@ myStartupHook :: X ()
 myStartupHook = 
 	
 	spawn "nitrogen --restore -set-auto &"
-    <+> spawn "compton --backend glx --xrender-sync --xrender-sync-fence -fcCz -l -17 -t -17 -i 0.9 -o 0.995 &"
+    <+> spawn "compton --backend glx --xrender-sync --xrender-sync-fence -fcCz -l -17 -t -17 -i 0.8 -o 0.9 &"
     <+> spawn "xsetroot -cursor_name hand1 &"
     
 ------------------------------------------------------------------------
