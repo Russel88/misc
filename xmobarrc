@@ -1,4 +1,4 @@
-Config { font = "xft:Ubuntu Mono:pixelsize=17:antialias=true:hinting=true"
+Config { font = "xft:Ubuntu Mono:pixelsize=18:bold:antialias=true:hinting=true"
        , additionalFonts = []
        , borderColor = "black"
        , border = TopB
@@ -16,7 +16,7 @@ Config { font = "xft:Ubuntu Mono:pixelsize=17:antialias=true:hinting=true"
        , allDesktops = True
        , overrideRedirect = True
          commands = [ 
-              Run Wireless "wlp2s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+              Run Wireless "wlp2s0" ["-L","0","-H","32","--normal","white","--high","green"] 10
             , Run Cpu ["-L","3","-H","50",
                        "--normal","green","--high","red"] 10
             , Run Memory ["-t","Mem: <usedratio>%"] 10
@@ -36,7 +36,7 @@ Config { font = "xft:Ubuntu Mono:pixelsize=17:antialias=true:hinting=true"
         ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% | Light: %bright% | Vol: %audio% | %wlp2s0wi%}\
-                    \{%StdinReader% | %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = " %cpu% | %memory% * %swap% | Light: %bright% | Vol: %audio% | %wlp2s0wi%}\
+                    \{%StdinReader% | %battery% | <fc=#ffaa00>%date%</fc> "
        }
             

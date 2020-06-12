@@ -9,7 +9,7 @@ with open("/sys/class/power_supply/BAT1/status") as f:
 
 percent = 100*charge_now/charge_full
 
-if percent < 20 and status == "Discharging":
+if percent < 10 and status == "Discharging":
     p = Popen(['osd_cat','-A','center','-p','top','-f','-*-*-bold-*-*-*-60-*-*-*-*-*-*-*','-d','4','-s','200'],stdin=PIPE)
     p.communicate(input=b"Battery Low!")
     p.wait()
