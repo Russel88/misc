@@ -16,19 +16,20 @@ Config { font = "xft:Ubuntu Mono:pixelsize=18:bold:antialias=true:hinting=true"
        , allDesktops = True
        , overrideRedirect = True
          commands = [ 
-              Run Wireless "wlp2s0" ["-L","0","-H","32","--normal","white","--high","green"] 10
-            , Run Cpu ["-L","3","-H","50",
+              Run Wireless "wlp2s0" ["-L","0","-H","50","--normal","white","--high","green"] 10
+            , Run Cpu ["-L","0","-H","50",
                        "--normal","green","--high","red"] 10
-            , Run Memory ["-t","Mem: <usedratio>%"] 10
-            , Run Swap [] 10
+            , Run Memory ["-t","Mem: <usedratio>%",
+                        "-L","0","-H","50",
+                        "--normal","green","--high","red"] 10
+            , Run Swap ["-L","0","-H","10",
+                        "--normal","green","--high","red"] 10
             , Run Date "%a %b %_d %Y %H:%M" "date" 10
             , Run Battery ["-t", "<acstatus>: <left>% - <timeleft>",
 	                       "--",
 	                       --"-c", "charge_full",
                            "-O", "AC",
-                           "-o", "Bat",
-                           "-h", "green",
-                           "-l", "red"
+                           "-o", "Bat"
                            ] 10
             , Run Com "/bin/bash" ["-c", "echo $((($(cat /sys/class/backlight/intel_backlight/brightness) * 100) / 4285))'%'"]  "bright" 1
             , Run Com "/home/russel/Scripts/misc/audiolevel" [] "audio" 1
@@ -36,7 +37,7 @@ Config { font = "xft:Ubuntu Mono:pixelsize=18:bold:antialias=true:hinting=true"
         ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %cpu% | %memory% * %swap% | Light: %bright% | Vol: %audio% | %wlp2s0wi%}\
+       , template = " %cpu% | %memory% * %swap% | Bright: %bright% | Vol: %audio% | %wlp2s0wi%}\
                     \{%StdinReader% | %battery% | <fc=#ffaa00>%date%</fc> "
        }
             

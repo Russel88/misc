@@ -9,6 +9,7 @@ import XMonad.Layout.Spacing
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Util.NamedWindows
+import XMonad.Actions.SpawnOn
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -60,16 +61,19 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modm,               xK_p     ), spawn "dmenu_run -b -l 10 -fn roboto -sb green -sf black")
+    , ((modm,               xK_p     ), spawn "rofi -show run -lines 10")
 
-    -- launch firefox
-    , ((modm, 		        xK_f     ), spawn "firefox")
+    -- launch browser
+    , ((modm, 		        xK_plus  ), spawn "brave-browser")
 
     -- launch alsamixer
     , ((modm, 		        xK_a     ), spawn "gnome-terminal.wrapper -e alsamixer")
 
     -- launch ranger
     , ((modm, 		        xK_z     ), spawn "gnome-terminal.wrapper -e ranger")
+    
+    -- launch nautilus
+    , ((modm, 		        xK_0     ), spawn "nautilus")
 
     -- launch arandr
     , ((modm, 		        xK_x     ), spawn "arandr")
@@ -149,8 +153,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0,  0x1008ff12 ), spawn "pactl set-sink-mute 0 toggle")
 
     --Brightness keys
-    , ((0, 0x1008FF03), spawn "sudo /home/russel/Scripts/misc/brightness -dec 428")
-    , ((0, 0x1008FF02), spawn "sudo /home/russel/Scripts/misc/brightness -inc 428")
+    , ((0, 0x1008FF03), spawn "sudo /home/russel/Scripts/misc/brightness -dec 20")
+    , ((0, 0x1008FF02), spawn "sudo /home/russel/Scripts/misc/brightness -inc 20")
 
     ]
     ++
@@ -259,7 +263,7 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook h = dynamicLogWithPP $ xmobarPP
-                                    { ppTitle = xmobarColor "green" "" . shorten 80
+                                    { ppTitle = xmobarColor "green" "" . shorten 60
                                     , ppOutput = hPutStrLn h
                                     , ppOrder = \(ws:l:t:_)   -> [ws, t]
                                     , ppUrgent  = xmobarColor "red" "yellow"
@@ -276,7 +280,7 @@ myStartupHook :: X ()
 myStartupHook = 
 	
 	spawn "nitrogen --restore -set-auto &"
-    <+> spawn "compton --backend glx --xrender-sync --xrender-sync-fence -fcCz -l -17 -t -17 -i 0.8 -o 0.9 &"
+    <+> spawn "compton --backend glx --xrender-sync --xrender-sync-fence -fcCz -l -17 -t -17 -i 0.9 -o 0.95 &"
     <+> spawn "xsetroot -cursor_name hand1 &"
     
 ------------------------------------------------------------------------

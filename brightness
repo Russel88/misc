@@ -6,10 +6,10 @@ CURRENT=$(cat $SYS_KEY)
 
 case $1 in 
     -inc) 
-        NEW=$(($CURRENT + $2)) 
+        NEW=$((1 + $CURRENT * (100 + $2)/100)) 
         ;; 
     -dec) 
-        NEW=$(($CURRENT - $2)) 
+        NEW=$((1 + $CURRENT * (100 - $2)/100)) 
         ;; 
     *) echo "Don't get it, sorry" 
         exit 10 
